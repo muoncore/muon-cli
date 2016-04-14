@@ -1,5 +1,8 @@
 #!/usr/bin/env node
 
+
+
+var muoncore = require('muon-core');
 var cli = require('cli').enable('status');
 require('sexylog');
 var url = require('url');
@@ -7,8 +10,10 @@ var Joi = require('joi');
 var _ = require('underscore');
 var util = require('util');
 var Table = require('cli-table');
+var uuid = require('node-uuid');
 
 
+var cliName = "muon-cli-" + uuid.v4();
 var amqpUrl = process.env.MUON_URL;
 
 
@@ -39,9 +44,8 @@ cli.main(function(args, options) {
 
 
 function discover() {
-
-    var AmqpDiscovery = require("../../muon/discovery/amqp/amqp-discovery");
-    var discovery = new AmqpDiscovery(amqpUrl);
+    var muon = muoncore.create(cliName, amqpUrl);
+    var discovery = muon.discovery();
 
     setTimeout(function() {
 

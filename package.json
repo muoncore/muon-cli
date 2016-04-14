@@ -29,11 +29,12 @@
     "expect.js": "*",
     "url-template": "*",
     "colors": "*",
+    "cli-table": "*",
     "stack-trace": "*",
     "cli": "0.6.6",
     "rx": "*",
     "rsvp": "*",
-    "daemon": "*",
+    "muon-core": "*",
     "signals": "*",
     "assert": "*",
     "joi": "*",
@@ -55,7 +56,7 @@
     "node": "*"
   },
   "bin": {
-    "muon": "muon/cli/muon-cli.js"
+    "muon": "cli/muon-cli.js"
   },
   "preferGlobal": "true",
 
