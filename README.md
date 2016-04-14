@@ -1,4 +1,8 @@
 # muon-cli
+installs a minimal muon command line to introspect in to muon state and services
+
+
+# Getting started
 
 ```
 sudo npm install -g muon-cli
