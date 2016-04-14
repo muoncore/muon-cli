@@ -1,0 +1,63 @@
+{
+  "name": "muon-cli",
+  "description": "node.js muon command line",
+  "version": "7.0.1",
+  "author": "Simplicity Itself Ltd",
+  "keywords": [
+    "muon",
+    "microservices",
+    "antifragile"
+  ],
+  "private": false,
+  "repository": {
+    "url": "https://github.com/microserviceux/muon-cli"
+  },
+  "scripts": {
+    "start": "node tck",
+    "tck": "node tck",
+    "test": "./node_modules/.bin/mocha --recursive -R xunit-file test/"
+  },
+  "dependencies": {
+    "split": "*",
+    "underscore": "*",
+    "jsonutil": "*",
+    "async": "*",
+    "url": "*",
+    "js-csp": "*",
+    "node-uuid": "*",
+    "body-parser": "*",
+    "expect.js": "*",
+    "url-template": "*",
+    "colors": "*",
+    "stack-trace": "*",
+    "cli": "0.6.6",
+    "rx": "*",
+    "rsvp": "*",
+    "daemon": "*",
+    "signals": "*",
+    "assert": "*",
+    "joi": "*",
+    "stack-trace": "*",
+    "sexylog": "*",
+    "string-format": "*",
+    "async-rq": "*"
+  },
+  "devDependencies": {
+    "mocha": "*",
+    "superagent": "*",
+    "assert": "*",
+    "validator": "*",
+    "xunit-file": "*",
+    "should": "*",
+    "mocha-sinon": "*"
+  },
+  "engines": {
+    "node": "*"
+  },
+  "bin": {
+    "muon": "muon/cli/muon-cli.js"
+  },
+  "preferGlobal": "true",
+
+  "main": "./muon/api/muoncore"
+}
