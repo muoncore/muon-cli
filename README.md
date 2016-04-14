@@ -2,6 +2,7 @@
 
 ```
 sudo npm install -g muon-cli
+export MUON_URL=<your muon trasnport url, eg: amqp://muon:microservices@localhost:5672>
 muon -d
 ```
 
