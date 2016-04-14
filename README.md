@@ -5,9 +5,7 @@ sudo npm install -g muon-cli
 muon -d
 ```
 
-
-
-And you will see this output:
+And, if you've got the MUON_URL variable set correctly to a RabbitMQ hosting a muon instance, you should see something like this:
 
 
 ```
