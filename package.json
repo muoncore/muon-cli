@@ -57,5 +57,5 @@
   "bin": {
     "muon": "cli/muon-cli.js"
   },
-  "preferGlobal": "true",
+  "preferGlobal": true
 }
