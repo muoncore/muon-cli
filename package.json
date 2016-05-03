@@ -2,7 +2,7 @@
   "name": "muon-cli",
   "description": "node.js muon command line",
   "version": "7.0.1",
-  "author": "Simplicity Itself Ltd",
+  "author": "Muon Core Ltd",
   "keywords": [
     "muon",
     "microservices",
@@ -30,7 +30,6 @@
     "url-template": "*",
     "colors": "*",
     "cli-table": "*",
-    "stack-trace": "*",
     "cli": "0.6.6",
     "rx": "*",
     "rsvp": "*",
@@ -59,6 +58,4 @@
     "muon": "cli/muon-cli.js"
   },
   "preferGlobal": "true",
-
-  "main": "./muon/api/muoncore"
 }

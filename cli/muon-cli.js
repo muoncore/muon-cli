@@ -18,10 +18,13 @@ var amqpUrl = process.env.MUON_URL;
 
 
 cli.parse({
-    discover:   ['d', 'discover muon services'],
-    rpc:  ['rpc', 'remote procedure call url', 'string'],
-    stream: ['s', 'print events from stream', 'string']
-});
+        // discover:   ['d', 'discover muon services'],
+        
+    },
+    {
+        "introspect":"Tap into a remote stream exposed by a service and output to standard out",
+        "discover":"Tap into a remote stream exposed by a service and output to standard out"
+    });
  
 cli.main(function(args, options) {
 
@@ -34,10 +37,12 @@ cli.main(function(args, options) {
     }
     this.ok('muon cli connected: ' + amqpUrl);
 
-    if (options.discover) {
-        discover();
-    } else {
-       console.log('mli: discovery/-d');
+    switch(cli.command) {
+        case "discover":
+            discover();
+            break;
+        default:
+            logger.error("Unknown command " + cli.command);
     }
 
 });
@@ -66,7 +71,7 @@ function discover() {
 
              console.log(table.toString());
              exit();
-    }, 5000)
+    }, 4000)
 
 
 }

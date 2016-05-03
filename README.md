@@ -7,7 +7,7 @@ installs a minimal muon command line to introspect in to muon state and services
 ```
 sudo npm install -g muon-cli
 export MUON_URL=<your muon trasnport url, eg: amqp://muon:microservices@localhost:5672>
-muon -d
+muon discover
 ```
 
 And, if you've got the MUON_URL variable set correctly to a RabbitMQ hosting a muon instance, you should see something like this:
@@ -15,7 +15,7 @@ And, if you've got the MUON_URL variable set correctly to a RabbitMQ hosting a m
 
 ```
 user@machine ~ $ export MUON_URL=amqp://muon:microservices@localhost:5672
-user@machine ~ $ muon -d
+user@machine ~ $ muon discover     [ or muon d ]
 OK: muon cli connected: amqp://muon:microservices@localhost:5672
 ┌──────────────────────────────┬──────────────────────────────┬──────────────────────────────┐
 │ SERVICE NAME                 │ TAGS                         │ CONTENT/TYPE                 │
