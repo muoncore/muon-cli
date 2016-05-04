@@ -80,11 +80,17 @@ function rpc(args) {
       var content_type = (response.content_type) ? response.content_type : "N/A";
       var body = (response.body) ? response.body : "N/A";
 
+      bodyString = JSON.stringify(body);
+      console.log(typeof body);
+
       table.push(
-          [status, content_type, body]
+          [status, content_type, bodyString]
       );
       if (response) {
         console.log(table.toString());
+            console.log('\n========= RESPONSE FULL BODY: ============================================================================\n');
+            console.dir(body );
+            console.log('\n');
       } else {
         console.log("no results");
         console.log(JSON.stringify(response));
