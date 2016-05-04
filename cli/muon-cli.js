@@ -65,7 +65,7 @@ function introspect(args) {
 
 
 function rpc(args) {
-
+  if (! args[1]) args[1] = '';
   var muon = muoncore.create(cliName, amqpUrl);
   var url = args[0];
   var payload = args[1];
