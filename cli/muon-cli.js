@@ -61,6 +61,14 @@ cli.main(function(args, options) {
 
 function introspect(args) {
   logger.warn("not implemented, soz.");
+
+  var service = args[0];
+    var muon = muoncore.create(cliName, amqpUrl);
+  muon.introspect(service, function(response) {
+
+    console.dir(response);
+    process.exit();
+  });
 }
 
 
