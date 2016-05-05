@@ -1,0 +1,128 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/bin/node', '/usr/local/bin/npm', 'publish' ]
+2 info using npm@2.14.7
+3 info using node@v4.2.3
+4 verbose publish [ '.' ]
+5 silly cache add args [ '.', null ]
+6 verbose cache add spec .
+7 silly cache add parsed spec Result {
+7 silly cache add   raw: '.',
+7 silly cache add   scope: null,
+7 silly cache add   name: null,
+7 silly cache add   rawSpec: '.',
+7 silly cache add   spec: '/Users/gawain/dev/muon-cli',
+7 silly cache add   type: 'directory' }
+8 verbose addLocalDirectory /Users/gawain/.npm/muon-cli/7.0.8/package.tgz not in flight; packing
+9 verbose tar pack [ '/Users/gawain/.npm/muon-cli/7.0.8/package.tgz',
+9 verbose tar pack   '/Users/gawain/dev/muon-cli' ]
+10 verbose tarball /Users/gawain/.npm/muon-cli/7.0.8/package.tgz
+11 verbose folder /Users/gawain/dev/muon-cli
+12 info prepublish muon-cli@7.0.8
+13 verbose addLocalTarball adding from inside cache /Users/gawain/.npm/muon-cli/7.0.8/package.tgz
+14 silly cache afterAdd muon-cli@7.0.8
+15 verbose afterAdd /Users/gawain/.npm/muon-cli/7.0.8/package/package.json not in flight; writing
+16 verbose afterAdd /Users/gawain/.npm/muon-cli/7.0.8/package/package.json written
+17 silly publish { name: 'muon-cli',
+17 silly publish   description: 'node.js muon command line',
+17 silly publish   version: '7.0.8',
+17 silly publish   author: { name: 'Muon Core Ltd' },
+17 silly publish   keywords: [ 'muon', 'microservices', 'antifragile' ],
+17 silly publish   private: false,
+17 silly publish   repository: { url: 'git+https://github.com/microserviceux/muon-cli.git' },
+17 silly publish   scripts:
+17 silly publish    { start: 'node tck',
+17 silly publish      tck: 'node tck',
+17 silly publish      test: 'mocha --recursive -R xunit-file test/' },
+17 silly publish   dependencies:
+17 silly publish    { split: '*',
+17 silly publish      underscore: '*',
+17 silly publish      jsonutil: '*',
+17 silly publish      async: '*',
+17 silly publish      url: '*',
+17 silly publish      'js-csp': '*',
+17 silly publish      'node-uuid': '*',
+17 silly publish      'body-parser': '*',
+17 silly publish      'expect.js': '*',
+17 silly publish      'url-template': '*',
+17 silly publish      colors: '*',
+17 silly publish      'cli-table': '*',
+17 silly publish      cli: '0.6.6',
+17 silly publish      rx: '*',
+17 silly publish      rsvp: '*',
+17 silly publish      'muon-core': '*',
+17 silly publish      signals: '*',
+17 silly publish      assert: '*',
+17 silly publish      joi: '*',
+17 silly publish      'stack-trace': '*',
+17 silly publish      sexylog: '*',
+17 silly publish      'string-format': '*',
+17 silly publish      'async-rq': '*' },
+17 silly publish   devDependencies:
+17 silly publish    { mocha: '*',
+17 silly publish      superagent: '*',
+17 silly publish      assert: '*',
+17 silly publish      validator: '*',
+17 silly publish      'xunit-file': '*',
+17 silly publish      should: '*',
+17 silly publish      'mocha-sinon': '*' },
+17 silly publish   engines: { node: '*' },
+17 silly publish   bin: { muon: 'cli/muon-cli.js' },
+17 silly publish   preferGlobal: true,
+17 silly publish   readme: '# muon-cli\ninstalls a minimal muon command line to introspect in to muon state and services\n\n\n# Getting started\n\n```\nsudo npm install -g muon-cli\nexport MUON_URL=<your muon trasnport url, eg: amqp://muon:microservices@localhost:5672>\nmuon discover\n```\n\nAnd, if you\'ve got the MUON_URL variable set correctly to a RabbitMQ hosting a muon instance, you should see something like this:\n\n\n```\nuser@machine ~ $ export MUON_URL=amqp://muon:microservices@localhost:5672\nuser@machine ~ $ muon discover     [ or muon d ]\nOK: muon cli connected: amqp://muon:microservices@localhost:5672\n┌──────────────────────────────┬──────────────────────────────┬──────────────────────────────┐\n│ SERVICE NAME                 │ TAGS                         │ CONTENT/TYPE                 │\n├──────────────────────────────┼──────────────────────────────┼──────────────────────────────┤\n│ muon-dev-tools               │ node,muon-dev-tools          │ application/json             │\n├──────────────────────────────┼──────────────────────────────┼──────────────────────────────┤\n│ muon-cli-99040de5-f948-48f3… │ node,muon-cli-99040de5-f948… │ application/json             │\n└──────────────────────────────┴──────────────────────────────┴──────────────────────────────┘\nuser@machine ~ $\n```\n\n\n\n# Run a muon RPC request/response from the cli\n\n\nfirst, run the muon-node exmaples service. To do this, checkout the muon-node github project:\n\n```\ngit clone https://github.com/microserviceux/muon-node.git\ncd muon-node\n./examples/run-dev-tools-server.sh \n```\n\nNow run some rpc commands against the examples service:\n\n```\nmuon rpc rpc://muon-dev-tools/echo "I LOVE muon"\nOK: muon cli connected: amqp://muon:microservices@localhost:5672\n┌────────────┬──────────────────────────────┬────────────────────────────────────────────────────────────┐\n│ STATUS     │ CONTENT/TYPE                 │ BODY                                                       │\n├────────────┼──────────────────────────────┼────────────────────────────────────────────────────────────┤\n│ 200        │ application/json             │ I LOVE muon                                                │\n└────────────┴──────────────────────────────┴────────────────────────────────────────────────────────────┘\nuser@machine ~ $\n```\n\n\n```\nmuon rpc rpc://muon-dev-tools/ping "ping"\nOK: muon cli connected: amqp://muon:microservices@localhost:5672\n┌────────────┬──────────────────────────────┬────────────────────────────────────────────────────────────┐\n│ STATUS     │ CONTENT/TYPE                 │ BODY                                                       │\n├────────────┼──────────────────────────────┼────────────────────────────────────────────────────────────┤\n│ 200        │ application/json             │ pong                                                       │\n└────────────┴──────────────────────────────┴────────────────────────────────────────────────────────────┘\n```\n\n\n\n```\nmuon rpc rpc://muon-dev-tools/uuid \nOK: muon cli connected: amqp://muon:microservices@localhost:5672\n┌────────────┬──────────────────────────────┬────────────────────────────────────────────────────────────┐\n│ STATUS     │ CONTENT/TYPE                 │ BODY                                                       │\n├────────────┼──────────────────────────────┼────────────────────────────────────────────────────────────┤\n│ 200        │ application/json             │ 1233a532-6216-481b-816b-7fab09802072                       │\n└────────────┴──────────────────────────────┴────────────────────────────────────────────────────────────┘\n```\n\n\n```\nmuon rpc rpc://muon-dev-tools/random\nOK: muon cli connected: amqp://muon:microservices@localhost:5672\n┌────────────┬──────────────────────────────┬────────────────────────────────────────────────────────────┐\n│ STATUS     │ CONTENT/TYPE                 │ BODY                                                       │\n├────────────┼──────────────────────────────┼────────────────────────────────────────────────────────────┤\n│ 200        │ application/json             │ 61249                                                      │\n└────────────┴──────────────────────────────┴────────────────────────────────────────────────────────────┘\n```\n',
+17 silly publish   readmeFilename: 'README.md',
+17 silly publish   gitHead: 'c87d9f109dcf2ecf79b50e5b3c78ef0013beda6e',
+17 silly publish   bugs: { url: 'https://github.com/microserviceux/muon-cli/issues' },
+17 silly publish   homepage: 'https://github.com/microserviceux/muon-cli#readme',
+17 silly publish   _id: 'muon-cli@7.0.8',
+17 silly publish   _shasum: '94ecf0842f48f4a98bd7b2b13f0023174e99bccd',
+17 silly publish   _from: '.' }
+18 verbose getPublishConfig undefined
+19 silly mapToRegistry name muon-cli
+20 silly mapToRegistry using default registry
+21 silly mapToRegistry registry https://registry.npmjs.org/
+22 silly mapToRegistry uri https://registry.npmjs.org/muon-cli
+23 verbose publish registryBase https://registry.npmjs.org/
+24 silly publish uploading /Users/gawain/.npm/muon-cli/7.0.8/package.tgz
+25 verbose request uri https://registry.npmjs.org/muon-cli
+26 verbose request sending authorization for write operation
+27 info attempt registry request try #1 at 5:52:43 PM
+28 verbose request id 2abb9d542f1888a0
+29 http request PUT https://registry.npmjs.org/muon-cli
+30 http 403 https://registry.npmjs.org/muon-cli
+31 verbose headers { 'content-type': 'application/json',
+31 verbose headers   'cache-control': 'max-age=300',
+31 verbose headers   'content-length': '95',
+31 verbose headers   'accept-ranges': 'bytes',
+31 verbose headers   date: 'Thu, 05 May 2016 16:52:45 GMT',
+31 verbose headers   via: '1.1 varnish',
+31 verbose headers   connection: 'keep-alive',
+31 verbose headers   'x-served-by': 'cache-lhr6334-LHR',
+31 verbose headers   'x-cache': 'MISS',
+31 verbose headers   'x-cache-hits': '0',
+31 verbose headers   'x-timer': 'S1462467163.781012,VS0,VE1513',
+31 verbose headers   vary: 'Accept-Encoding' }
+32 verbose request invalidating /Users/gawain/.npm/registry.npmjs.org/muon-cli on PUT
+33 error publish Failed PUT 403
+34 verbose stack Error: "You cannot publish over the previously published version 7.0.8." : muon-cli
+34 verbose stack     at makeError (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:264:12)
+34 verbose stack     at CachingRegistryClient.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:252:14)
+34 verbose stack     at Request._callback (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:172:14)
+34 verbose stack     at Request.self.callback (/usr/local/lib/node_modules/npm/node_modules/request/request.js:198:22)
+34 verbose stack     at emitTwo (events.js:87:13)
+34 verbose stack     at Request.emit (events.js:172:7)
+34 verbose stack     at Request.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/request/request.js:1063:14)
+34 verbose stack     at emitOne (events.js:82:20)
+34 verbose stack     at Request.emit (events.js:169:7)
+34 verbose stack     at IncomingMessage.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/request/request.js:1009:12)
+35 verbose statusCode 403
+36 verbose pkgid muon-cli
+37 verbose cwd /Users/gawain/dev/muon-cli
+38 error Darwin 15.3.0
+39 error argv "/usr/local/bin/node" "/usr/local/bin/npm" "publish"
+40 error node v4.2.3
+41 error npm  v2.14.7
+42 error code E403
+43 error "You cannot publish over the previously published version 7.0.8." : muon-cli
+44 error If you need help, you may report this error at:
+44 error     <https://github.com/npm/npm/issues>
+45 verbose exit [ 1, true ]
