@@ -86,3 +86,13 @@ OK: muon cli connected: amqp://muon:microservices@localhost:5672
 │ 200        │ application/json             │ 61249                                                      │
 └────────────┴──────────────────────────────┴────────────────────────────────────────────────────────────┘
 ```
+
+
+
+# Introspection
+
+If you have an instance of photon connected to your muon transport, you can query the photon service like so:
+
+```
+ muon i photon
+```
