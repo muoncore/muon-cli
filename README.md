@@ -43,18 +43,19 @@ cd muon-node
 Now run some rpc commands against the examples service:
 
 ```
-./cli/muon-cli.js rpc rpc://muon-dev-tools/echo "I LOVE muon"
+muon rpc rpc://muon-dev-tools/echo "I LOVE muon"
 OK: muon cli connected: amqp://muon:microservices@localhost:5672
 ┌────────────┬──────────────────────────────┬────────────────────────────────────────────────────────────┐
 │ STATUS     │ CONTENT/TYPE                 │ BODY                                                       │
 ├────────────┼──────────────────────────────┼────────────────────────────────────────────────────────────┤
 │ 200        │ application/json             │ I LOVE muon                                                │
 └────────────┴──────────────────────────────┴────────────────────────────────────────────────────────────┘
+user@machine ~ $
 ```
 
 
 ```
-./cli/muon-cli.js rpc rpc://muon-dev-tools/ping "ping"
+muon rpc rpc://muon-dev-tools/ping "ping"
 OK: muon cli connected: amqp://muon:microservices@localhost:5672
 ┌────────────┬──────────────────────────────┬────────────────────────────────────────────────────────────┐
 │ STATUS     │ CONTENT/TYPE                 │ BODY                                                       │
@@ -66,7 +67,7 @@ OK: muon cli connected: amqp://muon:microservices@localhost:5672
 
 
 ```
-./cli/muon-cli.js rpc rpc://muon-dev-tools/uuid 
+muon rpc rpc://muon-dev-tools/uuid 
 OK: muon cli connected: amqp://muon:microservices@localhost:5672
 ┌────────────┬──────────────────────────────┬────────────────────────────────────────────────────────────┐
 │ STATUS     │ CONTENT/TYPE                 │ BODY                                                       │
@@ -77,7 +78,7 @@ OK: muon cli connected: amqp://muon:microservices@localhost:5672
 
 
 ```
-./cli/muon-cli.js rpc rpc://muon-dev-tools/random
+muon rpc rpc://muon-dev-tools/random
 OK: muon cli connected: amqp://muon:microservices@localhost:5672
 ┌────────────┬──────────────────────────────┬────────────────────────────────────────────────────────────┐
 │ STATUS     │ CONTENT/TYPE                 │ BODY                                                       │
