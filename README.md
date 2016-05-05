@@ -94,5 +94,24 @@ OK: muon cli connected: amqp://muon:microservices@localhost:5672
 If you have an instance of photon connected to your muon transport, you can query the photon service like so:
 
 ```
- muon i photon
+muon i photon
+OK: muon cli connected: amqp://tfadmin:techfutu13@msg.cistechfutures.net
+{ serviceName: 'photon',
+  protocols: 
+   [ { protocolScheme: 'rpc',
+       protocolName: 'Request/ Response Protocol',
+       description: 'Make a single request, get a single response',
+       operations: [Object] },
+     { protocolScheme: 'introspect',
+       protocolName: 'Introspection Protocol',
+       description: 'Provides the ability to introspect services to derive their capabilities. Built into most Muon implementations',
+       operations: [] },
+     { protocolScheme: 'reactive-stream',
+       protocolName: 'Reactive Streaming',
+       description: 'Provides the semantics of the Reactive Stream API over a muon event protocol',
+       operations: [Object] },
+     { protocolScheme: 'event',
+       protocolName: 'Event Sink Protocol',
+       description: 'Provides a discoverable sink for events to flow into without needing explicit service endpoints',
+       operations: [] } ] }
 ```
