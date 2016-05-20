@@ -8,7 +8,7 @@ module.exports = function (muon, args) {
     var payload = args[1];
 
 
-    muon.subscribe("stream://tckservice/myStream",
+    muon.subscribe(url,
         function(data) {
             console.dir(data)
         },
