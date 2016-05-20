@@ -1,6 +1,7 @@
 
 var Table = require('cli-table');
-
+var _ = require('underscore');
+var util = require("../util")
 
 module.exports.introspect = function (muon, args) {
 
@@ -8,7 +9,7 @@ module.exports.introspect = function (muon, args) {
     muon.introspect(service, function(response) {
 
         console.dir(response);
-        process.exit();
+        util.exit();
     });
 }
 
@@ -33,8 +34,7 @@ module.exports.discover = function (muon) {
 
 
             console.log(table.toString());
-            exit();
+            util.exit();
         }, 4000)
-
 
     }

@@ -14,6 +14,7 @@ var uuid = require('node-uuid');
 
 var rpc = require("./actions/rpc")
 var builtin = require("./actions/builtin")
+var stream = require("./actions/stream")
 
 
 var cliName = "muon-cli-" + uuid.v4();
@@ -64,7 +65,7 @@ cli.main(function(args, options) {
             break;
         case "stream":
             withMuon(function (muon) {
-                stream(args);
+                stream(muon, args);
             })
             break;
         default:

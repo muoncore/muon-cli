@@ -1,6 +1,7 @@
 
 var Table = require('cli-table');
-
+var _ = require('underscore');
+var util = require("../util")
 
 module.exports = function (muon, args) {
     if (! args[1]) args[1] = '';
@@ -32,9 +33,7 @@ module.exports = function (muon, args) {
             console.log("no results");
             console.log(JSON.stringify(response));
         }
-
-
-        process.exit();
-
+        
+        util.exit();
     });
 }
