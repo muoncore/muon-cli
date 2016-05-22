@@ -31,7 +31,8 @@ cli.parse({
         "introspect":"Obtain introspection information for a service, showing implemented protocols and endpoints",
         "discover":"Show the currently running services",
         "rpc":"<url> <payload>",
-        "stream":"<url> <payload>"
+        "stream":"<url> [configuration]>",
+        "replay":"<stream name> [configuration]"
     });
 
 cli.main(function(args, options) {
@@ -52,6 +53,7 @@ cli.main(function(args, options) {
             withMuon(function (muon) {
                 builtin.discover(muon);
             })
+            
             break;
         case "introspect":
             withMuon(function (muon) {
@@ -65,13 +67,17 @@ cli.main(function(args, options) {
             break;
         case "stream":
             withMuon(function (muon) {
-                stream(muon, args);
+                stream.stream(muon, args);
+            })
+            break;
+        case "replay":
+            withMuon(function (muon) {
+                stream.replay(muon, args);
             })
             break;
         default:
             logger.error("Unknown command " + cli.command);
     }
-
 });
 
 function withMuon(exec) {
