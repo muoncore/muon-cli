@@ -4,7 +4,7 @@ var _ = require('underscore');
 var util = require("../util")
 
 module.exports = function (muon, args) {
-    if (! args[1]) args[1] = '';
+    if (! args[1]) args[1] = ' ';
     var url = args[0];
     var payload = args[1];
     muon.request(url, payload, function(response) {
@@ -33,7 +33,7 @@ module.exports = function (muon, args) {
             console.log("no results");
             console.log(JSON.stringify(response));
         }
-        
+
         util.exit();
     });
 }
