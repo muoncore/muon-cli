@@ -33,7 +33,7 @@
     "cli": "0.6.6",
     "rx": "*",
     "rsvp": "*",
-    "muon-core": "7.0.17",
+    "muon-core": "7.0.34",
     "signals": "*",
     "assert": "*",
     "joi": "*",
