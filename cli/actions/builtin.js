@@ -71,17 +71,15 @@ module.exports.discover = function (muon) {
             });
 
             discovery.discoverServices(function(services) {
-                //console.log(services);
                 _.each(services.serviceList, function(service) {
                     table.push(
                         [service.identifier, service.tags, service.codecs]
                     );
                 });
+
+                console.log(table.toString());
+                util.exit();
             });
 
-
-            console.log(table.toString());
-            util.exit();
         }, 4000)
-
     }
