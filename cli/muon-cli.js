@@ -15,7 +15,7 @@ var uuid = require('node-uuid');
 var rpc = require("./actions/rpc")
 var builtin = require("./actions/builtin")
 var stream = require("./actions/stream")
-
+var event = require("./actions/event")
 
 var cliName = "muon-cli-" + uuid.v4();
 var amqpUrl = process.env.MUON_URL;
@@ -32,6 +32,7 @@ cli.parse({
         "discover":"Show the currently running services",
         "rpc":"<url> <payload>",
         "stream":"<url> [configuration]>",
+        "emit":"<event>",
         "replay":"<stream name> [configuration]"
     });
 
@@ -74,6 +75,12 @@ cli.main(function(args, options) {
             withMuon(function (muon) {
                 stream.replay(muon, args);
             })
+            break;
+        case "emit":
+            withMuon(function (muon) {
+                event.emit(muon, args);
+            })
+
             break;
         default:
             logger.error("Unknown command " + cli.command);

@@ -1,7 +1,7 @@
 {
   "name": "muon-cli",
   "description": "node.js muon command line",
-  "version": "7.1.1",
+  "version": "7.1.3",
   "author": "Muon Core Ltd",
   "keywords": [
     "muon",
@@ -33,7 +33,7 @@
     "cli": "0.6.6",
     "rx": "*",
     "rsvp": "*",
-    "muon-core": "7.1.1",
+    "muon-core": "7.1.3",
     "signals": "*",
     "assert": "*",
     "joi": "*",
