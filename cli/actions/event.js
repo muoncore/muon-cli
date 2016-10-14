@@ -13,17 +13,7 @@ module.exports.emit = function (muon, args) {
         logger.trace("EVENT RESPONSE: \n" + JSON.stringify(result));
 
         if (result.status != "PERSISTED") {
-            var table = new Table({
-                head: ['STATUS', 'CAUSE']
-                , colWidths: [12, 200]
-            });
-
-            table.push(
-                [result.status,
-                    result.cause]
-            );
-
-            console.log(table.toString());
+            fail(result)
         } else {
 
             var table = new Table({
@@ -40,5 +30,23 @@ module.exports.emit = function (muon, args) {
             console.log(table.toString());
         }
         util.exit();
+    }).catch(function(error) {
+        fail(error)
+        util.exit();
     })
+}
+
+
+function fail(result) {
+    var table = new Table({
+        head: ['STATUS', 'CAUSE']
+        , colWidths: [9, 130]
+    });
+
+    table.push(
+        [result.status,
+            result.cause]
+    );
+
+    console.log(table.toString());
 }
