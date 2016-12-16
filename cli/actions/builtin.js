@@ -66,14 +66,14 @@ module.exports.discover = function (muon) {
         setTimeout(function() {
 
             var table = new Table({
-                head: ['SERVICE NAME', 'TAGS', 'CONTENT/TYPE']
-                , colWidths: [30, 30, 30]
+                head: ['SERVICE NAME', 'TAGS', 'TRANSPORT']
+                , colWidths: [30, 30, 70]
             });
 
             discovery.discoverServices(function(services) {
                 _.each(services.serviceList, function(service) {
                     table.push(
-                        [service.identifier, service.tags, service.codecs]
+                        [service.identifier, service.tags, service.connectionUrls.join()]
                     );
                 });
 
