@@ -16,10 +16,143 @@ ifdef::env-doc[]
 endif::[]
 
 
-
 ## Muon CLI
 
-.NOTE
-****
-In progress
-****
+Read about Muon in the link:/guide[Guide].
+
+The Muon CLI is based on Muon Node, and allows you to interact with a Muon system from the command line
+
+### Installation
+
+Install the CLI using NPM. If you don't have NPM installed already, go to http://npmjs.org to install it.
+
+```bash
+> npm install -g muon-cli
+```
+
+Once installed, you should be able to run
+
+```
+> muon
+Usage:
+  muon [OPTIONS] <command> [ARGS]
+
+Options:
+  -k, --no-color         Omit color from output
+      --debug            Show debug information
+  -h, --help             Display help and usage details
+
+Commands:
+  introspect             Obtain introspection information for a service,
+                         showing implemented protocols and endpoints
+  discover               Show the currently running services
+  rpc                    <url> <payload>
+  stream                 <url> [configuration]>
+  emit                   <event>
+  replay                 <stream name> [configuration]
+
+```
+
+The commands above are broadly aligned with the an underlying protocol.
+
+Next, you need to configure the CLI to connect to your Muon system
+
+This is done using the `MUON_URL` environment variable.
+
+Currently supported are AMQP systems for discovery and transport, and so you would set your MUON_URL to read
+
+```
+export MUON_URL=amqp://muon:microservices@localhost
+```
+
+This will allow you to connect to the Muon Starter environment, which is set to use this username/ password
+
+### Discovery
+
+Discovery is the process of inspecting the various services running in the system.
+
+You can run discovery from the cli using the `discover` command. All commands can be shortened as needed,
+so long as they are unambiguous. In this case, this could be reduced to `d`
+
+```
+> muon d
+
+┌──────────────────────────────┬──────────────────────────────┬─────────────────────────────────────┐
+│ SERVICE NAME                 │ TAGS                         │ TRANSPORT                           │
+├──────────────────────────────┼──────────────────────────────┼─────────────────────────────────────┤
+│ muon-gateway                 │ node,muon-gateway            │ amqp://muon:microservices@rabbitmq  │
+├──────────────────────────────┼──────────────────────────────┼─────────────────────────────────────┤
+│ muon-cli-128e78bb-5533-4271… │ node,muon-cli-128e78bb-5533… │ amqp://muon:microservices@localhost │
+└──────────────────────────────┴──────────────────────────────┴─────────────────────────────────────┘
+```
+
+Once you have discovered services, you need to be able to understand what they can do. This is the role of
+_introspection_
+
+### Introspection
+
+Introspection is a Muon protocol, and is implemented by every Muon implementation.
+
+It allows you to connect to a remote service and ask it what its capabilities are.
+
+This will return what protocols it implements, and what endpoints those protocols expose, if any
+(not all protocols map to the concept of endpoints)
+
+This can be run using
+
+```
+> muon introspect remote-service-name
+```
+
+An introspection report will then be printed to the console.
+
+### RPC
+
+RPC is a basic request/ response protocol that we conceptually don't like very much, but haven't
+managed to remove all the use cases for.
+
+By all means start with RPC, it's easy, however please don't stay here as your core communication
+ protocol.
+
+Given a remote system with an endpoint `/hello`, you can make an rpc call to it using
+
+```
+> muon rpc rpc://remote-service/hello
+```
+
+If the endpoint takes a payload parameter, you pass it as a string that will be read as JSON
+
+```
+muon rpc rpc://remote-service/hello '{"message":"is this"}'
+```
+
+The remote service will then receive a JSON encoded payload that it can read.
+
+### Reactive Streaming
+
+Reactive Streams is a set of Java interfaces that define the interactions needed to implement
+_back pressure_ on the stream. This allows the client to subscribe to a stream and then periodically instruct
+the server to send more data through.
+
+The Muon Reactive Streams protocol takes these interfaces and maps them to a Muon messaging protocol.
+
+The CLI can therefore connect to a remote streaming endpoint and have a full Reactive Streams
+conversation with it.
+
+In order to simplify the CLI use case, it automatically requests new data every 10 items.
+
+To subscribe to a remote, the command is
+
+```bash
+> muon stream stream://remote-service/endpoint
+```
+
+As with RPC, you can pass a parameter along with the subscription, which permits the Reactive Stream
+server protocol to construct a new stream taking into account those parameters.
+
+```bash
+> muon stream stream://remote-service/endpoint '{"param":"value"}'
+```
+
+### Events
+
