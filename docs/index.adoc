@@ -1,3 +1,22 @@
+---
+layout: documentation
+---
+:title: Muon CLI
+:date: 2015-01-05 11:40
+:comments: true
+:sharing: true
+:source-highlighter: pygments
+:toc: right
+:toc-title: Muon CLI
+:toclevels: 6
+
+:includedir: .
+ifdef::env-doc[]
+:includedir: submodules/cli/doc
+endif::[]
+
+
+
 ## Muon CLI
 
 .NOTE
