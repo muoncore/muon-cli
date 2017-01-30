@@ -61,25 +61,21 @@ module.exports.introspect = function (muon, args) {
 }
 
 module.exports.discover = function (muon) {
-        var discovery = muon.discovery();
+    var discovery = muon.discovery();
 
-        setTimeout(function() {
+    var table = new Table({
+        head: ['SERVICE NAME', 'TAGS', 'TRANSPORT']
+        , colWidths: [30, 30, 70]
+    });
 
-            var table = new Table({
-                head: ['SERVICE NAME', 'TAGS', 'TRANSPORT']
-                , colWidths: [30, 30, 70]
-            });
+    discovery.discoverServices(function(services) {
+        _.each(services.serviceList, function(service) {
+            table.push(
+                [service.identifier, service.tags, service.connectionUrls.join()]
+            );
+        });
 
-            discovery.discoverServices(function(services) {
-                _.each(services.serviceList, function(service) {
-                    table.push(
-                        [service.identifier, service.tags, service.connectionUrls.join()]
-                    );
-                });
-
-                console.log(table.toString());
-                util.exit();
-            });
-
-        }, 4000)
-    }
+        console.log(table.toString());
+        util.exit();
+    });
+}
