@@ -1,7 +1,5 @@
 #!/usr/bin/env node
 
-
-
 var muoncore = require('muon-core');
 var cli = require('cli').enable('status');
 require('sexylog');
@@ -46,7 +44,7 @@ cli.main(function(args, options) {
         logger.error('export MUON_URL=amqp://muon:microservices@localhost:5672');
         exit();
     }
-    cliobj.ok('muon cli connected: ' + amqpUrl);
+    // cliobj.ok('muon cli connected: ' + amqpUrl);
     logger.trace("rpc() args=" + JSON.stringify(args));
 
     switch(cli.command) {

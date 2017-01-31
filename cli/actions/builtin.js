@@ -60,6 +60,21 @@ module.exports.introspect = function (muon, args) {
     });
 }
 
+module.exports.introspect.complete = function(data, done) {
+    withMuon(function (muon) {
+        // console.log("DOING AWESOME THINGS")
+        var discovery = muon.discovery();
+        discovery.discoverServices(function(services) {
+            var serviceList = _.map(services.serviceList, function(service) {
+                return service.identifier
+            });
+
+            done(null, serviceList);
+            exit()
+        });
+    })
+}
+
 module.exports.discover = function (muon) {
     var discovery = muon.discovery();
 
@@ -78,4 +93,14 @@ module.exports.discover = function (muon) {
         console.log(table.toString());
         util.exit();
     });
+}
+
+
+var muoncore = require('muon-core');
+var amqpUrl = process.env.MUON_URL;
+var cliName = "muon-cli"
+
+function withMuon(exec) {
+    var muon = muoncore.create(cliName, amqpUrl);
+    exec(muon)
 }

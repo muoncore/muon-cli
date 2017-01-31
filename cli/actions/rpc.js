@@ -37,3 +37,52 @@ module.exports = function (muon, args) {
         util.exit();
     });
 }
+
+module.exports.complete = function(data, done) {
+
+
+    withMuon(function (muon) {
+
+        var discovery = muon.discovery();
+
+        done(null, [JSON.stringify(discovery)])
+        // if (data.words < 3) {
+            discovery.discoverServices(function (services) {
+
+                done(null, ["hello", "world2"])
+
+
+                // done(null, ["HAPPY"]);
+                // return
+                // var serviceList = _.map(services.serviceList, function (service) {
+                //     return service.identifier
+                // });
+                //
+                // done(null, serviceList);
+                // util.exit()
+            });
+        // } else {
+        //     muon.introspect(data.last, function(response) {
+        //
+        //         var rpcProto = _.find(response.protocols, function(prot) { return prot.protocolScheme == "rpc" })
+        //
+        //         var endpointList= _.map(rpcProto.operations, function (op) {
+        //             return op.resource
+        //         });
+        //
+        //         done(null, endpointList);
+        //         exit()
+        //     })
+        // }
+    })
+}
+
+
+var muoncore = require('muon-core');
+var amqpUrl = process.env.MUON_URL;
+var cliName = "muon-cli"
+
+function withMuon(exec) {
+    var muon = muoncore.create(cliName, amqpUrl);
+    exec(muon)
+}
