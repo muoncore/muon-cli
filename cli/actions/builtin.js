@@ -62,7 +62,6 @@ module.exports.introspect = function (muon, args) {
 
 module.exports.introspect.complete = function(data, done) {
     withMuon(function (muon) {
-        // console.log("DOING AWESOME THINGS")
         var discovery = muon.discovery();
         discovery.discoverServices(function(services) {
             var serviceList = _.map(services.serviceList, function(service) {

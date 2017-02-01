@@ -1,24 +1,31 @@
-
 var Table = require('cli-table');
 var _ = require('underscore');
 var util = require("../util")
 
 module.exports = function (muon, args) {
-    if (! args[1]) args[1] = ' ';
-    var url = args[0];
-    var payload = args[1];
-    muon.request(url, payload, function(response) {
+
+    var url = args[0]
+    var payload = args[1]
+
+    if (!_.contains(url, "rpc://")) {
+        // broken down format
+        url = "rpc://" + args[0] + args[1]
+        payload = args[2]
+    }
+
+    if (!payload) payload = ' ';
+    muon.request(url, payload, function (response) {
         logger.trace("RPC RESPONSE: \n" + JSON.stringify(response));
         var table = new Table({
             head: ['STATUS', 'CONTENT/TYPE', 'BODY']
             , colWidths: [12, 30, 60]
         });
 
-        var status =  (response.status) ? response.status : "N/A";
+        var status = (response.status) ? response.status : "N/A";
         var content_type = (response.content_type) ? response.content_type : "N/A";
         var body = (response.body) ? response.body : "N/A";
 
-        bodyString = JSON.stringify(body);
+        var bodyString = JSON.stringify(body);
         console.log(typeof body);
 
         table.push(
@@ -27,7 +34,7 @@ module.exports = function (muon, args) {
         if (response) {
             console.log(table.toString());
             console.log('\n========= RESPONSE FULL BODY: ============================================================================\n');
-            console.dir(body );
+            console.dir(body);
             console.log('\n');
         } else {
             console.log("no results");
@@ -38,51 +45,37 @@ module.exports = function (muon, args) {
     });
 }
 
-module.exports.complete = function(data, done) {
+module.exports.complete = function (data, done) {
+    util.withMuon(function (muon) {
 
+        switch(data.words) {
+            case 2:
+                var discovery = muon.discovery();
 
-    withMuon(function (muon) {
+                discovery.discoverServices(function (services) {
+                    var serviceList = _.map(services.serviceList, function (service) {
+                        return service.identifier
+                    });
 
-        var discovery = muon.discovery();
+                    done(null, serviceList);
+                    util.exit()
+                })
+                break
+            case 3:
+                muon.introspect(data.prev, function (response) {
 
-        done(null, [JSON.stringify(discovery)])
-        // if (data.words < 3) {
-            discovery.discoverServices(function (services) {
+                    var rpcProto = _.find(response.protocols, function (prot) {
+                        return prot.protocolScheme == "rpc"
+                    })
 
-                done(null, ["hello", "world2"])
+                    var endpointList = _.map(rpcProto.operations, function (op) {
+                        return op.resource
+                    });
 
-
-                // done(null, ["HAPPY"]);
-                // return
-                // var serviceList = _.map(services.serviceList, function (service) {
-                //     return service.identifier
-                // });
-                //
-                // done(null, serviceList);
-                // util.exit()
-            });
-        // } else {
-        //     muon.introspect(data.last, function(response) {
-        //
-        //         var rpcProto = _.find(response.protocols, function(prot) { return prot.protocolScheme == "rpc" })
-        //
-        //         var endpointList= _.map(rpcProto.operations, function (op) {
-        //             return op.resource
-        //         });
-        //
-        //         done(null, endpointList);
-        //         exit()
-        //     })
-        // }
+                    done(null, endpointList);
+                    util.exit()
+                })
+                break
+        }
     })
-}
-
-
-var muoncore = require('muon-core');
-var amqpUrl = process.env.MUON_URL;
-var cliName = "muon-cli"
-
-function withMuon(exec) {
-    var muon = muoncore.create(cliName, amqpUrl);
-    exec(muon)
 }
