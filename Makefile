@@ -5,5 +5,4 @@ ifndef VERSION
 endif
 	npm install
 	npm version --no-git-tag-version $(VERSION)
-	npm run build
 	npm publish
