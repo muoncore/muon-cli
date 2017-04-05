@@ -1,5 +1,12 @@
 # Change Log
 
+## [v7.2.0](https://github.com/muoncore/muon-cli/tree/v7.2.0) (2017-04-05)
+[Full Changelog](https://github.com/muoncore/muon-cli/compare/7.1.22...v7.2.0)
+
+**Closed issues:**
+
+- Add raw output option [\#3](https://github.com/muoncore/muon-cli/issues/3)
+
 ## [7.1.22](https://github.com/muoncore/muon-cli/tree/7.1.22) (2017-03-05)
 
 
