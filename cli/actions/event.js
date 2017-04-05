@@ -3,7 +3,7 @@ var Table = require('cli-table');
 var _ = require('underscore');
 var util = require("../util")
 
-module.exports.emit = function (muon, args) {
+module.exports.emit = function (muon, options, args) {
 
     if (process.stdin.isTTY) {
         processCommand(muon, args, function(data) {

@@ -4,7 +4,7 @@ var _ = require('underscore');
 var util = require("../util")
 var colors = require("colors")
 
-module.exports.introspect = function (muon, args) {
+module.exports.introspect = function (muon, options, args) {
 
     var service = args[0];
     muon.introspect(service, function(response) {
@@ -74,24 +74,38 @@ module.exports.introspect.complete = function(data, done) {
     })
 }
 
-module.exports.discover = function (muon) {
+module.exports.discover = function (muon, options) {
     var discovery = muon.discovery();
 
-    var table = new Table({
+    if (options.raw) {
+      discovery.discoverServices(function (services) {
+        var data = []
+        _.each(services.serviceList, function (service) {
+          data.push(
+            {serviceName:service.identifier, tags:service.tags, transports:service.connectionUrls.join()}
+          );
+        });
+
+        console.log(JSON.stringify(data));
+        util.exit();
+      });
+    } else {
+      var table = new Table({
         head: ['SERVICE NAME', 'TAGS', 'TRANSPORT']
         , colWidths: [30, 30, 70]
-    });
+      });
 
-    discovery.discoverServices(function(services) {
-        _.each(services.serviceList, function(service) {
-            table.push(
-                [service.identifier, service.tags, service.connectionUrls.join()]
-            );
+      discovery.discoverServices(function (services) {
+        _.each(services.serviceList, function (service) {
+          table.push(
+            [service.identifier, service.tags, service.connectionUrls.join()]
+          );
         });
 
         console.log(table.toString());
         util.exit();
-    });
+      });
+    }
 }
 
 

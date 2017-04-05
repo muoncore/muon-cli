@@ -23,7 +23,7 @@ var cliobj;
 
 cli.parse({
         // discover:   ['d', 'discover muon services'],
-
+      raw: ['r', "Output raw, no decoration. Suitable for post processing"]
     },
     {
         "introspect":"Obtain introspection information for a service, showing implemented protocols and endpoints",
@@ -50,33 +50,33 @@ cli.main(function(args, options) {
     switch(cli.command) {
         case "discover":
             withMuon(function (muon) {
-                builtin.discover(muon);
+                builtin.discover(muon, options);
             })
-            
+
             break;
         case "introspect":
             withMuon(function (muon) {
-                builtin.introspect(muon, args);
+                builtin.introspect(muon, options, args);
             })
             break;
         case "rpc":
             withMuon(function (muon) {
-                rpc(muon, args);
+                rpc(muon, options, args);
             })
             break;
         case "stream":
             withMuon(function (muon) {
-                stream.stream(muon, args);
+                stream.stream(muon, options, args);
             })
             break;
         case "replay":
             withMuon(function (muon) {
-                stream.replay(muon, args);
+                stream.replay(muon, options, args);
             })
             break;
         case "emit":
             withMuon(function (muon) {
-                event.emit(muon, args);
+                event.emit(muon, options, args);
             })
 
             break;
@@ -87,7 +87,7 @@ cli.main(function(args, options) {
 
 function withMuon(exec) {
     var muon = muoncore.create(cliName, amqpUrl);
-    exec(muon)    
+    exec(muon)
 }
 
 function exit() {

@@ -40,6 +40,8 @@ Usage:
   muon [OPTIONS] <command> [ARGS]
 
 Options:
+  -r  --raw              Output raw, no decoration. Suitable for post
+                         processing
   -k, --no-color         Omit color from output
       --debug            Show debug information
   -h, --help             Display help and usage details
@@ -158,3 +160,59 @@ server protocol to construct a new stream taking into account those parameters.
 
 ### Events
 
+To manipulate events you will need a running event store. Run a Photon and then you will be able to use the event commands.
+
+To persist an event, you decide the *type* and the *stream* that it will be persisted on
+
+```bash
+> muon emit '{ "event-type": "SomethingHappened", "schema": "1","stream-name": "something","payload": {"message": "Hi there!"}}'
+```
+
+You can then replay the stream
+
+```bash
+david@patmos:~/Development/microux/muon/muon-cli$ muon replay something
+{ 'order-id': 1491410009700831,
+  'event-type': 'SomethingHappened',
+  schema: '1',
+  'event-time': 1491410009700,
+  'service-id': 'cli',
+  'stream-name': 'something',
+  payload: { message: 'Hi there!' } }
+```
+
+You can also decide the type of replay, and when to replay from
+
+```bash
+$ muon replay something '{"stream-type":"<type>", "from":<orderid>}'
+```
+
+#### Stream Type
+
+Streams in the Muon event model are durable and persisted. The client, when subscribing, can decide whether to
+ replay all the existing data, some of it, none of it, and whether to continue the subscription into the future or not.
+
+The stream-type param above can be set to one of
+
+* *hot-cold* - Existing data will be replayed, then all new data will be played. New data that arrives during replay will be buffered in Photon and played in order once the cold replay is complete.
+* *hot* - No existing data will be provided, only data that arrives are the subscription is established. No transactional consistency is applied to this rule. If you require all data are a time period, use *hot-cold* with a predefined *from* parameter.
+* *cold* - Only existing data will be replayed. Once the data is finished, a _complete_ signal will be sent and the cli process will terminate
+
+The default is *hot-cold*.
+
+#### Partial Replay using From
+
+Every event has an *Event Time* stamped on it when it is accepted by the event store. This is the event accept time and is
+defined as millis since the unix epoch.
+This event time can be used to select a replay period.  To use it, pull the event time from an event, or choose a time in millis
+and pass that in to the from param.
+
+This example will display the single record from above, then exit
+```
+muon replay something '{"from": 1491410009700, "stream-type":"cold"}'
+```
+
+This will simply exit, as the from period is altered to be 1ms later.
+```
+muon replay something '{"from": 1491410009701, "stream-type":"cold"}'
+```

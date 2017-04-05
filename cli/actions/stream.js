@@ -2,7 +2,7 @@
 var Table = require('cli-table');
 var util = require("../util")
 
-module.exports.stream = function (muon, args) {
+module.exports.stream = function (muon, options, args) {
     if (! args[1]) args[1] = '{}';
     var url = args[0];
     var params = JSON.parse(args[1]);
@@ -60,11 +60,11 @@ module.exports.complete = function (data, done) {
     })
 }
 
-module.exports.replay = function (muon, args) {
+module.exports.replay = function (muon, options, args) {
     if (! args[1]) args[1] = '{}';
     var stream = args[0];
     var payload = JSON.parse(args[1]);
-    //todo, joi parse the config 
+    //todo, joi parse the config
     muon.replay(stream,
         payload,
         function(data) {
