@@ -1,5 +1,14 @@
 # Change Log
 
+## [v7.2.5](https://github.com/muoncore/muon-cli/tree/v7.2.5) (2017-04-05)
+[Full Changelog](https://github.com/muoncore/muon-cli/compare/v7.2.4...v7.2.5)
+
+## [v7.2.4](https://github.com/muoncore/muon-cli/tree/v7.2.4) (2017-04-05)
+[Full Changelog](https://github.com/muoncore/muon-cli/compare/v7.2.3...v7.2.4)
+
+## [v7.2.3](https://github.com/muoncore/muon-cli/tree/v7.2.3) (2017-04-05)
+[Full Changelog](https://github.com/muoncore/muon-cli/compare/v7.2.2...v7.2.3)
+
 ## [v7.2.2](https://github.com/muoncore/muon-cli/tree/v7.2.2) (2017-04-05)
 [Full Changelog](https://github.com/muoncore/muon-cli/compare/v7.2.1...v7.2.2)
 
