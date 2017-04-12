@@ -1,5 +1,13 @@
 # Change Log
 
+## [Unreleased](https://github.com/muoncore/muon-cli/tree/HEAD)
+
+[Full Changelog](https://github.com/muoncore/muon-cli/compare/v7.2.5...HEAD)
+
+**Closed issues:**
+
+- Add --raw to stream and event replay [\#5](https://github.com/muoncore/muon-cli/issues/5)
+
 ## [v7.2.5](https://github.com/muoncore/muon-cli/tree/v7.2.5) (2017-04-05)
 [Full Changelog](https://github.com/muoncore/muon-cli/compare/v7.2.4...v7.2.5)
 
