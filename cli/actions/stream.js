@@ -10,7 +10,11 @@ module.exports.stream = function (muon, options, args) {
     muon.subscribe(url,
         params,
         function(data) {
+          if (options.raw){
+            console.log(JSON.stringify(data))
+          } else {
             console.dir(data)
+          }
         },
         function(error) {
             logger.error("Error reported in the stream: " + JSON.stringify(error))
@@ -68,7 +72,11 @@ module.exports.replay = function (muon, options, args) {
     muon.replay(stream,
         payload,
         function(data) {
+          if (options.raw){
+            console.log(JSON.stringify(data))
+          } else {
             console.dir(data)
+          }
         },
         function(error) {
             logger.error("Error reported in the stream: " + JSON.stringify(error))
