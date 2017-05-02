@@ -1,4 +1,6 @@
 # muon-cli
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/muoncore/muon-cli.svg)](https://greenkeeper.io/)
 installs a minimal muon command line to introspect in to muon state and services
 
 
