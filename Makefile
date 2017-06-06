@@ -1,4 +1,6 @@
 
+.PHONY: test
+
 publish:
 ifndef VERSION
 	$(error VERSION is undefined for NPM release)
@@ -18,4 +20,5 @@ publish-snapshot:
 	git push origin
 
 test:
-	echo "No tests in the CLI repo"
+	npm install
+	npm test
