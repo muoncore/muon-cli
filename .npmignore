@@ -1,4 +1,4 @@
-src/
+cli/
 test/
 .npmignore
 xunit.xml

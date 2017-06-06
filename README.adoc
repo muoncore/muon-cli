@@ -1,11 +1,20 @@
-# muon-cli
-installs a minimal muon command line to introspect in to muon state and services
+|===
+| Master Build | Stable | Snapshots
+| image:https://img.shields.io/teamcity/http/teamcity.simplicityitself.com/e/OpenSource_MuonReleases_TransportsDiscoveries_CliSnapshot.svg[Status]
+| image:https://img.shields.io/github/tag/muoncore/muon-cli.svg[]
+| image:https://img.shields.io/npm/v/muon-cli/next.svg[NPM]
+|===
 
+# Muon CLI
 
-# Getting started
+installs a command line tool to interact with Muon systems
+
+# Getting Started
+
+The CLI is currently hardcoded to include the link:http://github.com/muoncore/muon-amqp[AMQP transport/ discovery]
 
 ```
-sudo npm install -g muon-cli
+sudo npm install -g muon-cli@next
 export MUON_URL=<your muon trasnport url, eg: amqp://muon:microservices@localhost:5672>
 muon discover
 ```
@@ -28,16 +37,16 @@ user@machine ~ $
 ```
 
 
+# Muon RPC from the cli
 
-# Run a muon RPC request/response from the cli
+As provided by the link:http://github.com/muoncore/stack-rpc[RPC Stack]
 
-
-first, run the muon-node exmaples service. To do this, checkout the muon-node github project:
+first, run the muon-node examples service. To do this, checkout the muon-node github project:
 
 ```
 git clone https://github.com/microserviceux/muon-node.git
 cd muon-node
-./examples/run-dev-tools-server.sh 
+./examples/run-dev-tools-server.sh
 ```
 
 Now run some rpc commands against the examples service:
@@ -67,7 +76,7 @@ OK: muon cli connected: amqp://muon:microservices@localhost:5672
 
 
 ```
-muon rpc rpc://muon-dev-tools/uuid 
+muon rpc rpc://muon-dev-tools/uuid
 OK: muon cli connected: amqp://muon:microservices@localhost:5672
 ┌────────────┬──────────────────────────────┬────────────────────────────────────────────────────────────┐
 │ STATUS     │ CONTENT/TYPE                 │ BODY                                                       │
@@ -87,9 +96,9 @@ OK: muon cli connected: amqp://muon:microservices@localhost:5672
 └────────────┴──────────────────────────────┴────────────────────────────────────────────────────────────┘
 ```
 
-
-
 # Introspection
+
+Introspection is a feature in Muon Core. It enables you to connect to a remote service and query its capabilities int erms of the protocol stacks available, the endpoints they provide and the schemas you can use to interact with them.
 
 If you have an instance of photon connected to your muon transport, you can query the photon service like so:
 
@@ -97,7 +106,7 @@ If you have an instance of photon connected to your muon transport, you can quer
 muon i photon
 OK: muon cli connected: amqp://tfadmin:techfutu13@msg.cistechfutures.net
 { serviceName: 'photon',
-  protocols: 
+  protocols:
    [ { protocolScheme: 'rpc',
        protocolName: 'Request/ Response Protocol',
        description: 'Make a single request, get a single response',
