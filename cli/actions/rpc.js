@@ -17,13 +17,13 @@ module.exports = function (muon, options, args) {
 
   if (!payload) payload = ' ';
 
-  console.log("AUTH is " + auth)
+  // console.log("AUTH is " + auth)
 
   if (auth) {
-    console.log("Requesting with auth")
+    // console.log("Requesting with auth")
     muon.requestWithAuth(url, payload, auth, processResponse);
   } else {
-    console.log("NO AUTH")
+    // console.log("NO AUTH")
     muon.request(url, payload, processResponse);
   }
 

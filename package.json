@@ -1,7 +1,7 @@
 {
   "name": "muon-cli",
   "description": "node.js muon command line",
-  "version": "7.3.1-25",
+  "version": "7.3.1-26",
   "author": "Muon Core Ltd",
   "keywords": [
     "muon",
@@ -33,7 +33,7 @@
     "muon-core": "^7.3.0-1",
     "muon-stack-event": "0.0.1-32",
     "muon-stack-reactive-streams": "0.0.2-2",
-    "muon-stack-rpc": "0.0.2-5",
+    "muon-stack-rpc": "0.0.2-32",
     "rsvp": "*",
     "rx": "*",
     "sexylog": "*",
