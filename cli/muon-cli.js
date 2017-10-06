@@ -26,7 +26,8 @@ var cliobj;
 
 cli.parse({
     // discover:   ['d', 'discover muon services'],
-    raw: ['r', "Output raw, no decoration. Suitable for post processing"]
+    raw: ['r', "Output raw, no decoration. Suitable for post processing"],
+    auth: ['a', "Add an auth token to the protocol connection, if supported by the protocol", "string", ""]
   },
   {
     "introspect": "Obtain introspection information for a service, showing implemented protocols and endpoints",

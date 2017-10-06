@@ -7,6 +7,8 @@ module.exports = function (muon, options, args) {
   var url = args[0]
   var payload = args[1]
 
+  var auth = options.auth
+
   if (!_.contains(url, "rpc://")) {
     // broken down format
     url = "rpc://" + args[0] + args[1]
@@ -14,7 +16,18 @@ module.exports = function (muon, options, args) {
   }
 
   if (!payload) payload = ' ';
-  muon.request(url, payload, function (response) {
+
+  console.log("AUTH is " + auth)
+
+  if (auth) {
+    console.log("Requesting with auth")
+    muon.requestWithAuth(url, payload, auth, processResponse);
+  } else {
+    console.log("NO AUTH")
+    muon.request(url, payload, processResponse);
+  }
+
+  function processResponse(response) {
     logger.trace("RPC RESPONSE: \n" + JSON.stringify(response));
     var table = new Table({
       head: ['STATUS', 'CONTENT/TYPE', 'BODY']
@@ -44,10 +57,12 @@ module.exports = function (muon, options, args) {
         console.log(JSON.stringify(response));
       }
     }
-
     util.exit();
-  });
+  }
 }
+
+
+
 
 module.exports.complete = function (data, done) {
   util.withMuon(function (muon) {
