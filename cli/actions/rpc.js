@@ -16,8 +16,6 @@ module.exports = function (muon, options, args) {
 
   if (!payload) payload = ' ';
 
-  console.log("AUTH is " + auth)
-
   if (auth) {
     muon.requestWithAuth(url, payload, JSON.parse(auth), processResponse);
   } else {
