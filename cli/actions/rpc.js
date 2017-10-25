@@ -3,7 +3,6 @@ var _ = require('underscore');
 var util = require("../util")
 
 module.exports = function (muon, options, args) {
-
   var url = args[0]
   var payload = args[1]
 
@@ -17,11 +16,10 @@ module.exports = function (muon, options, args) {
 
   if (!payload) payload = ' ';
 
-  // console.log("AUTH is " + auth)
+  console.log("AUTH is " + auth)
 
   if (auth) {
-    // console.log("Requesting with auth")
-    muon.requestWithAuth(url, payload, auth, processResponse);
+    muon.requestWithAuth(url, payload, JSON.parse(auth), processResponse);
   } else {
     // console.log("NO AUTH")
     muon.request(url, payload, processResponse);

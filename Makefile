@@ -23,9 +23,11 @@ test:
 
 setup:
 	npm install
+
+compile:
 	npm run build
 
 binary:
 	pkg distribution/muon-cli.js
 
-build: setup binary
+build: setup compile binary
