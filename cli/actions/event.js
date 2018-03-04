@@ -5,12 +5,14 @@ var util = require("../util")
 
 module.exports.emit = function (muon, options, args) {
 
+    var auth = JSON.parse(options.auth)
+
     if (process.stdin.isTTY) {
-        processCommand(muon, args, function(data) {
+        processCommand(muon, auth, args, function(data) {
             render([data])
         })
     } else {
-        processStreamInput(muon, args)
+        processStreamInput(muon, args, auth)
     }
 }
 
@@ -27,7 +29,7 @@ function render(data) {
     util.exit()
 }
 
-function processStreamInput(muon, args) {
+function processStreamInput(muon, args, auth) {
 
     var streamCompleted = false;
 
@@ -52,7 +54,7 @@ function processStreamInput(muon, args) {
                 logger.error("error", e)
             }
             commandsOutstanding++;
-            processCommand(muon, [line], function(funcdata){
+            processCommand(muon, auth, [line], function(funcdata){
                 logger.warn("Processing command!")
                 commandsOutstanding--;
                 if (commandsOutstanding < 80 && paused) {
@@ -69,13 +71,13 @@ function processStreamInput(muon, args) {
     }
 }
 
-function processCommand(muon, args, done) {
+function processCommand(muon, auth, args, done) {
     if (! args[0]) args[0] = '{}';
     var payload = JSON.parse(args[0]);
 
     payload["service-id"] = "cli"
 
-    muon.emit(payload).then(function(result) {
+    muon.emit(payload, auth).then(function(result) {
         logger.trace("EVENT RESPONSE: \n" + JSON.stringify(result));
         done([result.status,
             result.orderId,

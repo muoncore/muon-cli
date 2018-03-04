@@ -9,6 +9,7 @@ module.exports.stream = function (muon, options, args) {
     var auth = options.auth
 
     muon.subscribe(url,
+        auth,
         params,
         function(data) {
           if (options.raw){
@@ -69,8 +70,12 @@ module.exports.replay = function (muon, options, args) {
     if (! args[1]) args[1] = '{}';
     var stream = args[0];
     var payload = JSON.parse(args[1]);
+
+    var auth = JSON.parse(options.auth)
+
     //todo, joi parse the config
     muon.replay(stream,
+        auth,
         payload,
         function(data) {
           if (options.raw){
@@ -88,50 +93,4 @@ module.exports.replay = function (muon, options, args) {
             util.exit()
         }
     )
-}
-
-
-module.exports.replaycomplete = function (data, done) {
-
-    //TODO, no API accessible on photon to obtain current list of streams.
-
-
-    done(null, [])
-
-    // util.withMuon(function (muon) {
-
-        // switch(data.words) {
-        //     case 2:
-        //         //TODO, look up the eventstore
-        //
-        //         muon.request("rpc://photon/", function (response) {
-        //
-        //             var rpcProto = _.find(response.protocols, function (prot) {
-        //                 return prot.protocolScheme == "rpc"
-        //             })
-        //
-        //             var endpointList = _.map(rpcProto.operations, function (op) {
-        //                 return op.resource
-        //             });
-        //
-        //             done(null, endpointList);
-        //             util.exit()
-        //         })
-        //
-        //
-        //         // var discovery = muon.discovery();
-        //         //
-        //         //
-        //         //
-        //         // discovery.discoverServices(function (services) {
-        //         //     var serviceList = _.map(services.serviceList, function (service) {
-        //         //         return service.identifier
-        //         //     });
-        //         //
-        //         //     done(null, serviceList);
-        //         //     util.exit()
-        //         // })
-        //         break
-        // }
-    // })
 }

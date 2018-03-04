@@ -18,14 +18,14 @@ publish-snapshot: setup
 	git push origin
 
 test:
-	npm install
-	npm test
+	yarn
+	yarn test
 
 setup:
-	npm install
+	yarn install
 
 compile:
-	npm run build
+	yarn run build
 
 binary:
 	pkg distribution/muon-cli.js
