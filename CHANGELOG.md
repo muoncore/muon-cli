@@ -1,5 +1,8 @@
 # Change Log
 
+## [v7.3.2](https://github.com/muoncore/muon-cli/tree/v7.3.2) (2018-03-04)
+[Full Changelog](https://github.com/muoncore/muon-cli/compare/v7.3.0...v7.3.2)
+
 ## [v7.3.0](https://github.com/muoncore/muon-cli/tree/v7.3.0) (2018-03-04)
 [Full Changelog](https://github.com/muoncore/muon-cli/compare/v7.2.5...v7.3.0)
 
