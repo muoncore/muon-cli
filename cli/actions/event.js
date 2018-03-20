@@ -76,6 +76,9 @@ function processCommand(muon, auth, args, done) {
     var payload = JSON.parse(args[0]);
 
     payload["service-id"] = "cli"
+    delete payload["order-id"]
+
+  console.dir(payload)
 
     muon.emit(payload, auth).then(function(result) {
         logger.trace("EVENT RESPONSE: \n" + JSON.stringify(result));
